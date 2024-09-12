@@ -1,0 +1,242 @@
+[
+  {
+    "name": "venom-worker-1",
+    "cpu_percentage": 0.34,
+    "memory_usage_mb": 4380.85,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 13.68,
+    "network_rx_mb": 217.82,
+    "network_tx_mb": 344.53,
+    "status": "running"
+  },
+  {
+    "name": "venom-scheduler-1",
+    "cpu_percentage": 0.17,
+    "memory_usage_mb": 227.22,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.71,
+    "network_rx_mb": 2.34,
+    "network_tx_mb": 1.93,
+    "status": "running"
+  },
+  {
+    "name": "venom-django-1",
+    "cpu_percentage": 1.06,
+    "memory_usage_mb": 402.5,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 1.26,
+    "network_rx_mb": 0.75,
+    "network_tx_mb": 0.14,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-heavy-1",
+    "cpu_percentage": 0.04,
+    "memory_usage_mb": 618.3,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 1.93,
+    "network_rx_mb": 16.19,
+    "network_tx_mb": 4.31,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-tool-1",
+    "cpu_percentage": 0.05,
+    "memory_usage_mb": 584.14,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 1.82,
+    "network_rx_mb": 16.2,
+    "network_tx_mb": 4.32,
+    "status": "running"
+  },
+  {
+    "name": "natrix-rpc-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 97.29,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.3,
+    "network_rx_mb": 0.22,
+    "network_tx_mb": 4.27,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-medium-1",
+    "cpu_percentage": 0.04,
+    "memory_usage_mb": 703.49,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 2.2,
+    "network_rx_mb": 16.19,
+    "network_tx_mb": 4.31,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-light-1",
+    "cpu_percentage": 0.05,
+    "memory_usage_mb": 895.1,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 2.79,
+    "network_rx_mb": 16.19,
+    "network_tx_mb": 4.31,
+    "status": "running"
+  },
+  {
+    "name": "natrix-web-1",
+    "cpu_percentage": 5.96,
+    "memory_usage_mb": 278.56,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.87,
+    "network_rx_mb": 0.11,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-gui-1",
+    "cpu_percentage": 0.04,
+    "memory_usage_mb": 679.88,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 2.12,
+    "network_rx_mb": 16.2,
+    "network_tx_mb": 4.32,
+    "status": "running"
+  },
+  {
+    "name": "natrix-worker-celery-1",
+    "cpu_percentage": 0.04,
+    "memory_usage_mb": 667.52,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 2.08,
+    "network_rx_mb": 16.21,
+    "network_tx_mb": 4.33,
+    "status": "running"
+  },
+  {
+    "name": "natrix-mongodb-1",
+    "cpu_percentage": 0.03,
+    "memory_usage_mb": 82.25,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.26,
+    "network_rx_mb": 0.21,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "natrix-centrifugo-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 23.77,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.07,
+    "network_rx_mb": 0.21,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "natrix-front-frontend-dev-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 1395.83,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 4.36,
+    "network_rx_mb": 0.11,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "venom-front-frontend-dev-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 4156.39,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 12.98,
+    "network_rx_mb": 0.42,
+    "network_tx_mb": 0.03,
+    "status": "running"
+  },
+  {
+    "name": "venom-rabbitmq-1",
+    "cpu_percentage": 0.17,
+    "memory_usage_mb": 91.48,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.29,
+    "network_rx_mb": 6.46,
+    "network_tx_mb": 6.53,
+    "status": "running"
+  },
+  {
+    "name": "venom-redis-1",
+    "cpu_percentage": 0.01,
+    "memory_usage_mb": 4.11,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.01,
+    "network_rx_mb": 0.72,
+    "network_tx_mb": 0.34,
+    "status": "running"
+  },
+  {
+    "name": "venom-postgres-1",
+    "cpu_percentage": 0.1,
+    "memory_usage_mb": 915.72,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 2.86,
+    "network_rx_mb": 333.65,
+    "network_tx_mb": 99.36,
+    "status": "running"
+  },
+  {
+    "name": "natrix-postgres-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 355.54,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 1.11,
+    "network_rx_mb": 0.13,
+    "network_tx_mb": 0.02,
+    "status": "running"
+  },
+  {
+    "name": "n-celery-monitor",
+    "cpu_percentage": 0.06,
+    "memory_usage_mb": 17.32,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.05,
+    "network_rx_mb": 15.72,
+    "network_tx_mb": 2.28,
+    "status": "running"
+  },
+  {
+    "name": "cryeye-main-gate-main-gate-1",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 6.54,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.02,
+    "network_rx_mb": 0.14,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "natrix-rabbitmq-1",
+    "cpu_percentage": 0.27,
+    "memory_usage_mb": 96.63,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.3,
+    "network_rx_mb": 28.22,
+    "network_tx_mb": 111.96,
+    "status": "running"
+  },
+  {
+    "name": "natrix-redis-1",
+    "cpu_percentage": 0.01,
+    "memory_usage_mb": 2.6,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.01,
+    "network_rx_mb": 0.1,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  },
+  {
+    "name": "portainer",
+    "cpu_percentage": 0.0,
+    "memory_usage_mb": 17.39,
+    "memory_limit_mb": 32025.41,
+    "memory_percentage": 0.05,
+    "network_rx_mb": 0.14,
+    "network_tx_mb": 0.0,
+    "status": "running"
+  }
+]
