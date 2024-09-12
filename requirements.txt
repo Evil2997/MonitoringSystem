@@ -1,0 +1,3 @@
+docker==7.1.0
+psutil==5.9.6
+pyvbox==2.1.1
