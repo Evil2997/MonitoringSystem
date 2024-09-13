@@ -90,4 +90,4 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     # Запускаем мониторинг контейнеров с записью данных в CSV
-    monitor_containers(output_file="container_stats_1.csv")
+    monitor_containers(output_file="container_stats.csv")
