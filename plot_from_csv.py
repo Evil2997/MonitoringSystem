@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from cycler import cycler  # Для расширенной цветовой палитры
 import base64
 from io import BytesIO
 
@@ -18,6 +19,12 @@ def group_containers(df):
 # Функция для создания графиков по группам
 def create_plot(group, group_name):
     fig, axs = plt.subplots(3, 1, figsize=(14, 14), sharex=True)
+
+    # Исправленный вызов get_cmap с использованием plt.get_cmap
+    colors = plt.get_cmap('tab20', len(group['Container Name'].unique()))
+    axs[0].set_prop_cycle(cycler('color', [colors(i) for i in range(len(group['Container Name'].unique()))]))
+    axs[1].set_prop_cycle(cycler('color', [colors(i) for i in range(len(group['Container Name'].unique()))]))
+    axs[2].set_prop_cycle(cycler('color', [colors(i) for i in range(len(group['Container Name'].unique()))]))
 
     containers = group['Container Name'].unique()
 
@@ -99,10 +106,10 @@ def generate_html(venom_img, natrix_img, audit_img, other_img):
     </html>
     """
 
-    with open('monitoring_graph.html', 'w') as f:
+    with open('monitoring_graphs.html', 'w') as f:
         f.write(html)
 
-    print("HTML файл сохранен как 'monitoring_graph.html'")
+    print("HTML файл сохранен как 'monitoring_graphs.html'")
 
 
 # Главная функция
