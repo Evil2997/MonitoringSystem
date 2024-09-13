@@ -1,17 +1,13 @@
-import docker
-import time
-import json
 import logging
-import matplotlib.pyplot as plt
-from concurrent.futures import ThreadPoolExecutor
+import time
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta
 
-# Настраиваем логирование
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Храним предыдущие данные для каждого контейнера и историю для графиков
-previous_stats = {}
-data_history = defaultdict(lambda: defaultdict(list))  # Храним историю по каждому контейнеру и параметру
+import docker
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 
 def get_container_stats(container):
@@ -55,7 +51,7 @@ def compare_stats(new_stats, old_stats):
 def update_data_history(stats):
     """Записывает новые данные в историю для дальнейшего построения графиков"""
     container_name = stats['name']
-    timestamp = time.time()  # Текущее время для графиков
+    timestamp = datetime.now()
 
     data_history[container_name]['time'].append(timestamp)
     data_history[container_name]['cpu_percentage'].append(stats['cpu_percentage'])
@@ -67,62 +63,88 @@ def update_data_history(stats):
 
 def plot_graphs():
     """Строит графики на основе данных"""
-    plt.clf()  # Очищаем график перед рисованием
+    plt.clf()
+
+    end_time = datetime.now()
+
+    window_time = timedelta(hours=1)
 
     for container_name, data in data_history.items():
         times = data['time']
+        if len(times) > 0:
+            start_window = max(times[-1] - window_time, times[0])
 
-        # Строим графики для каждого параметра
-        plt.subplot(3, 1, 1)
-        plt.plot(times, data['cpu_percentage'], label=f'{container_name} CPU (%)')
-        plt.ylabel('CPU %')
+            plt.subplot(3, 1, 1)
+            plt.plot(times, data['cpu_percentage'], label=f'{container_name} CPU (%)', linestyle='-', marker='o')
+            plt.ylabel('CPU %')
+            plt.title('CPU Usage Over Time')
+            plt.grid(True)
+            plt.xlim([start_window, times[-1]])
 
-        plt.subplot(3, 1, 2)
-        plt.plot(times, data['memory_usage_mb'], label=f'{container_name} Memory (MB)')
-        plt.ylabel('Memory (MB)')
+            plt.subplot(3, 1, 2)
+            plt.plot(times, data['memory_usage_mb'], label=f'{container_name} Memory (MB)', linestyle='-', marker='o')
+            plt.ylabel('Memory (MB)')
+            plt.title('Memory Usage Over Time')
+            plt.grid(True)
+            plt.xlim([start_window, times[-1]])
 
-        plt.subplot(3, 1, 3)
-        plt.plot(times, data['network_rx_mb'], label=f'{container_name} Network RX (MB)')
-        plt.plot(times, data['network_tx_mb'], label=f'{container_name} Network TX (MB)')
-        plt.ylabel('Network (MB)')
+            plt.subplot(3, 1, 3)
+            plt.plot(times, data['network_rx_mb'], label=f'{container_name} Network RX (MB)', linestyle='--',
+                     marker='x')
+            plt.plot(times, data['network_tx_mb'], label=f'{container_name} Network TX (MB)', linestyle='--',
+                     marker='x')
+            plt.ylabel('Network (MB)')
+            plt.title('Network I/O Over Time')
+            plt.grid(True)
+            plt.xlim([start_window, times[-1]])
 
-    plt.xlabel('Time (s)')
-    plt.legend(loc='upper left')
-    plt.tight_layout()
-    plt.pause(0.1)  # Обновляем графики
+    plt.gcf().autofmt_xdate()
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(MaxNLocator(5))
+
+    plt.xlabel('Time')
+    plt.legend(loc='upper left', fontsize='small')
+    plt.tight_layout()  # Автоматически подгоняем размещение под графики
+    plt.pause(1)  # Краткая пауза для обновления графиков
 
 
 def monitor_containers():
     client = docker.from_env()
 
-    plt.ion()  # Включаем интерактивный режим графиков
-    plt.figure(figsize=(10, 8))
+    plt.ion()  # Включаем интерактивный режим
+    plt.figure(figsize=(12, 10))  # Устанавливаем размер графиков
 
     try:
         while True:
             containers = client.containers.list()
-            data = []
 
-            # Используем ThreadPoolExecutor для многопоточности
             with ThreadPoolExecutor() as executor:
                 results = executor.map(monitor_container, containers)
 
             for stats in results:
                 container_name = stats['name']
 
-                # Проверяем, изменились ли данные с прошлого раза
                 if container_name not in previous_stats or compare_stats(stats, previous_stats[container_name]):
-                    # Обновляем предыдущие данные
                     previous_stats[container_name] = stats
-                    update_data_history(stats)  # Обновляем историю данных для графиков
+                    update_data_history(stats)
 
-            plot_graphs()  # Обновляем графики
-            time.sleep(10)
+            plot_graphs()
+            time.sleep(5)  # Пауза между обновлениями
     except KeyboardInterrupt:
         logging.info("Мониторинг остановлен.")
-        plt.ioff()
-        plt.show()  # Показываем графики перед завершением программы
+        plt.ioff()  # Выключаем интерактивный режим
+        plt.show()  # Показываем финальные графики
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(16, 10))
+    lines = defaultdict(dict)
+
+    previous_stats = {}
+    data_history = defaultdict(lambda: defaultdict(list))  # Храним историю по каждому контейнеру и параметру
+
+    start_time = datetime.now()
+
     monitor_containers()
