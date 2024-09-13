@@ -1,6 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import base64
+from io import BytesIO
+
 
 def plot_from_csv(csv_file='container_stats.csv'):
     # Загружаем данные из CSV файла
@@ -10,7 +13,7 @@ def plot_from_csv(csv_file='container_stats.csv'):
     containers = df['Container Name'].unique()
 
     # Создаем фигуру с несколькими графиками
-    fig, axs = plt.subplots(3, 1, figsize=(19.2, 12), sharex=True)
+    fig, axs = plt.subplots(3, 1, figsize=(14, 14), sharex=True)
 
     for container in containers:
         container_data = df[df['Container Name'] == container]
@@ -50,9 +53,35 @@ def plot_from_csv(csv_file='container_stats.csv'):
     # Увеличиваем нижнее поле для размещения легенды
     plt.subplots_adjust(bottom=0.3)
 
-    # Показываем график
-    plt.show()
+    # Сохраняем график в буфер
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # Конвертируем изображение в base64
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    # Закрываем буфер
+    buffer.close()
+
+    # Генерируем HTML
+    html = f"""
+    <html>
+    <head><title>Container Monitoring Graph</title></head>
+    <body>
+    <h1>Monitoring Results</h1>
+    <img src="data:image/png;base64,{image_base64}" alt="Monitoring Graph">
+    </body>
+    </html>
+    """
+
+    # Записываем HTML в файл
+    with open('monitoring_graph.html', 'w') as f:
+        f.write(html)
+
+    print("HTML файл сохранен как 'monitoring_graph.html'")
+
 
 if __name__ == "__main__":
-    # Вызываем функцию для построения графика
+    # Вызываем функцию для построения графика и генерации HTML
     plot_from_csv('container_stats.csv')
