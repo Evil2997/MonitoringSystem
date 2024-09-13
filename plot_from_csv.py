@@ -1,8 +1,9 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import base64
 from io import BytesIO
+
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def plot_from_csv(csv_file='container_stats.csv'):
@@ -23,6 +24,9 @@ def plot_from_csv(csv_file='container_stats.csv'):
         axs[0].set_ylabel('CPU (%)')
         axs[0].set_title('CPU Usage Over Time')
         axs[0].grid(True)
+
+        # Устанавливаем пределы для оси Y от 0 до 100 для графика CPU
+        axs[0].set_ylim(0, 100)
 
         # График памяти
         axs[1].plot(container_data['Timestamp'], container_data['Memory Usage (MB)'], label=f'{container} Memory (MB)')
@@ -83,5 +87,5 @@ def plot_from_csv(csv_file='container_stats.csv'):
 
 
 if __name__ == "__main__":
-    # Вызываем функцию для построения графика и генерации HTML
+    # Вызываем функцию для построения графика
     plot_from_csv('container_stats.csv')
