@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-
 def plot_from_csv(csv_file='container_stats.csv'):
     # Загружаем данные из CSV файла
     df = pd.read_csv(csv_file, parse_dates=['Timestamp'])
@@ -11,7 +10,7 @@ def plot_from_csv(csv_file='container_stats.csv'):
     containers = df['Container Name'].unique()
 
     # Создаем фигуру с несколькими графиками
-    fig, axs = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
+    fig, axs = plt.subplots(3, 1, figsize=(19.2, 12), sharex=True)
 
     for container in containers:
         container_data = df[df['Container Name'] == container]
@@ -41,17 +40,18 @@ def plot_from_csv(csv_file='container_stats.csv'):
     axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
     fig.autofmt_xdate()  # Автоматический поворот меток времени
 
-    # Добавляем легенды для каждого графика
-    axs[0].legend(loc='upper left', fontsize='small')
-    axs[1].legend(loc='upper left', fontsize='small')
-    axs[2].legend(loc='upper left', fontsize='small')
+    # Настройка легенд: Размещение под графиком с несколькими строками и уменьшенным шрифтом
+    for ax in axs:
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=4, fontsize='x-small', frameon=False)
 
     # Применяем tight_layout для оптимальной компоновки
     plt.tight_layout()
 
+    # Увеличиваем нижнее поле для размещения легенды
+    plt.subplots_adjust(bottom=0.3)
+
     # Показываем график
     plt.show()
-
 
 if __name__ == "__main__":
     # Вызываем функцию для построения графика
