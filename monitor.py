@@ -77,7 +77,7 @@ def monitor_containers(output_file='container_stats.csv'):
                 for stats in results:
                     save_stats_to_csv(stats, csv_writer)  # Записываем данные в CSV
 
-                time.sleep(5)  # Пауза между обновлениями
+                time.sleep(25)  # Пауза между обновлениями
         except KeyboardInterrupt:
             logging.info("Мониторинг остановлен. Запись в CSV завершена.")
         except Exception as e:
@@ -90,4 +90,4 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     # Запускаем мониторинг контейнеров с записью данных в CSV
-    monitor_containers()
+    monitor_containers(output_file="container_stats_1.csv")
