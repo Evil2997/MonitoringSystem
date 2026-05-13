@@ -1,3 +1,16 @@
+# Environment
+.venv/
+venv/
+
+# Generated output
 container_stats.csv
-monitoring_graph.html
 monitoring_graphs.html
+monitoring_graph.html
+
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
